@@ -9,3 +9,6 @@ You have to build an executable jar file and run it via cmd:
 `java -jar ARCS.jar`
 It will be easier in future versions. Sorry for the inconvenience.
 
+## Know bugs / issues
+Tested tested as handbrake in Assetto Corsa (handbrake binded to SPACE key).
+Sometimes server goes crazy. The HB stops working and randomly brakes and releases. To fix that please restart the server.
