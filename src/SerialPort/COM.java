@@ -26,14 +26,15 @@ public class COM {
 		device.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
 
 		InputStream is = device.getInputStream();
-		
+
 		ConsoleIO.show("Listening device. Press Ctrl + C to stop server.");
-		
+
 		while (true) {
 			try {
 				Robot r = new Robot();
 				int reading = is.read();
-				
+				ConsoleIO.show(reading + "");
+
 				if (reading == 72) {
 					r.keyPress(KeyEvent.VK_SPACE);
 				} else if (reading == 0) {
