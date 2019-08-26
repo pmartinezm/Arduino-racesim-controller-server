@@ -18,4 +18,9 @@ public class Command {
 	public String getKeys() {
 		return keys;
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
+import ui.controller.ManageCommandsController;
 import ui.controller.UIController;
 import ui.panels.ManageCommandsPanel;
 
@@ -21,7 +22,7 @@ public class ManageCommandsAction implements ActionListener{
 		dialog.setAutoRequestFocus(true);
 		dialog.setAlwaysOnTop(true);
 		dialog.setTitle("Manage commands");
-		dialog.setContentPane(new ManageCommandsPanel());
+		dialog.setContentPane(new ManageCommandsController());
 		dialog.setResizable(false);
 		dialog.pack();
 		dialog.setVisible(true);
