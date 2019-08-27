@@ -1,23 +1,20 @@
-package ui.actions;
+package ui.listeners.manageCommands;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import ui.controller.ManageCommandsController;
 
-public class RemoveCommandAction implements ActionListener{
+public class AddCommandListener implements ActionListener {
 	private ManageCommandsController controller;
-	
-	
 
-	public RemoveCommandAction(ManageCommandsController controller) {
-		super();
+	public AddCommandListener(ManageCommandsController controller) {
 		this.controller = controller;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		controller.removeCommand();
+		controller.addCommand();
 	}
 
 }

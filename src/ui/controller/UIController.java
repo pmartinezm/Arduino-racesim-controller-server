@@ -6,7 +6,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import ui.UI;
-import ui.actions.ManageCommandsAction;
+import ui.listeners.ManageCommandsListener;
 
 public class UIController extends UI {
 
@@ -21,7 +21,7 @@ public class UIController extends UI {
 	}
 	
 	private void attatchActions() {
-		mntmManage.addActionListener(new ManageCommandsAction(this));
+		mntmManage.addActionListener(new ManageCommandsListener(this));
 	}
 
 	private void blink() {

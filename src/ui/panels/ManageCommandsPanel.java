@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import dao.CommandDAO;
+import controller.dao.CommandDAO;
 import model.Command;
 
 import javax.swing.JLabel;
@@ -29,14 +29,15 @@ public class ManageCommandsPanel extends JPanel {
 	protected JButton btnAdd;
 	protected JSeparator separator;
 	protected JList<Command> list;
+	protected JButton btnClearShortcut;
 	
 	public ManageCommandsPanel() {
 		setPreferredSize(new Dimension(500, 350));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -51,6 +52,7 @@ public class ManageCommandsPanel extends JPanel {
 		
 		JLabel lblKeys = new JLabel("Keys");
 		GridBagConstraints gbc_lblKeys = new GridBagConstraints();
+		gbc_lblKeys.anchor = GridBagConstraints.WEST;
 		gbc_lblKeys.insets = new Insets(0, 0, 5, 5);
 		gbc_lblKeys.gridx = 2;
 		gbc_lblKeys.gridy = 0;
@@ -67,6 +69,7 @@ public class ManageCommandsPanel extends JPanel {
 		txtName.setColumns(10);
 		
 		txtKeys = new JTextField();
+		txtKeys.setEditable(false);
 		GridBagConstraints gbc_txtKeys = new GridBagConstraints();
 		gbc_txtKeys.gridwidth = 2;
 		gbc_txtKeys.insets = new Insets(0, 0, 5, 5);
@@ -76,20 +79,27 @@ public class ManageCommandsPanel extends JPanel {
 		add(txtKeys, gbc_txtKeys);
 		txtKeys.setColumns(10);
 		
+		btnClearShortcut = new JButton("Clear");
+		GridBagConstraints gbc_btnClearShortcut = new GridBagConstraints();
+		gbc_btnClearShortcut.fill = GridBagConstraints.BOTH;
+		gbc_btnClearShortcut.insets = new Insets(0, 0, 5, 5);
+		gbc_btnClearShortcut.gridx = 4;
+		gbc_btnClearShortcut.gridy = 1;
+		add(btnClearShortcut, gbc_btnClearShortcut);
+		
 		btnAdd = new JButton("Add");
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
-		gbc_btnAdd.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAdd.fill = GridBagConstraints.BOTH;
 		gbc_btnAdd.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAdd.anchor = GridBagConstraints.NORTH;
-		gbc_btnAdd.gridx = 4;
+		gbc_btnAdd.gridx = 5;
 		gbc_btnAdd.gridy = 1;
 		add(btnAdd, gbc_btnAdd);
 		
 		separator = new JSeparator();
 		GridBagConstraints gbc_separator = new GridBagConstraints();
-		gbc_separator.gridwidth = 5;
+		gbc_separator.gridwidth = 6;
 		gbc_separator.fill = GridBagConstraints.HORIZONTAL;
-		gbc_separator.insets = new Insets(0, 0, 5, 5);
+		gbc_separator.insets = new Insets(0, 0, 5, 0);
 		gbc_separator.gridx = 0;
 		gbc_separator.gridy = 2;
 		add(separator, gbc_separator);
@@ -97,7 +107,7 @@ public class ManageCommandsPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 3;
-		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.gridwidth = 5;
 		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
@@ -109,9 +119,9 @@ public class ManageCommandsPanel extends JPanel {
 		
 		btnRemove = new JButton("Remove");
 		GridBagConstraints gbc_btnRemove = new GridBagConstraints();
-		gbc_btnRemove.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnRemove.fill = GridBagConstraints.BOTH;
 		gbc_btnRemove.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRemove.gridx = 4;
+		gbc_btnRemove.gridx = 5;
 		gbc_btnRemove.gridy = 3;
 		add(btnRemove, gbc_btnRemove);
 	}

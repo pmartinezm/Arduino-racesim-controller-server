@@ -1,4 +1,4 @@
-package ui.actions;
+package ui.listeners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +9,10 @@ import ui.controller.ManageCommandsController;
 import ui.controller.UIController;
 import ui.panels.ManageCommandsPanel;
 
-public class ManageCommandsAction implements ActionListener{
+public class ManageCommandsListener implements ActionListener{
 	private UIController uic;
 
-	public ManageCommandsAction(UIController uic) {
+	public ManageCommandsListener(UIController uic) {
 		this.uic = uic;
 	}
 
