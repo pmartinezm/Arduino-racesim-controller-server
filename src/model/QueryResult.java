@@ -30,4 +30,12 @@ public class QueryResult {
 	public ArrayList<Object> get(int index) {
 			return rows.get(index);
 	}
+	
+	public ArrayList<ArrayList<Object>> getRows() {
+		return rows;
+	}
+	
+	public ArrayList<String> getColNames() {
+		return columnNames;
+	}
 }

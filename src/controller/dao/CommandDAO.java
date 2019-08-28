@@ -30,9 +30,8 @@ public class CommandDAO {
 		ArrayList<Command> commands = new ArrayList<Command>();
 
 		if (qr.rowCount() > 0) {
-			for (int i = 0; i < qr.rowCount(); i++) {
-				ArrayList<Object> data = qr.get(i);
-				commands.add(new Command((String) data.get(0), (String) data.get(1)));
+			for (ArrayList<Object> row : qr.getRows()) {
+				commands.add(new Command((String) row.get(0), (String) row.get(1)));
 			}
 		}
 

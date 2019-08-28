@@ -15,7 +15,7 @@ public class KeyRecorder {
 	}
 	
 	public KeyRecorder() {
-		this.keys = new ArrayList();
+		this.keys = new ArrayList<KeyEvent>();
 	}
 	
 	public void addKey(KeyEvent key) {
