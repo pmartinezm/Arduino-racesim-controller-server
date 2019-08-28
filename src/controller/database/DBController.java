@@ -4,8 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import model.QueryResult;
+import util.RSConverter;
 
 public class DBController {
 	private String path;
@@ -21,19 +27,33 @@ public class DBController {
 		return instance;
 	}
 
-	public void createDatabase(String path) {
+	/**
+	 * Creates the db file.
+	 * 
+	 * @param path path_to_file/name.ext
+	 * @return true if the db was created, false if not (error creating or already
+	 *         exists)
+	 */
+	public boolean createDatabase(String path) {
 		System.out.println("Creating database...");
 		this.path = path;
 		this.url = this.base + this.path;
-		checkFile();
+		boolean response = checkFile();
 		testConnection();
+		return response;
+	}
+
+	public void configureDatabase(ArrayList<String> queries) {
+		for (String query : queries) {
+			sendQuery(query);
+		}
 	}
 
 	/**
 	 * Comprueba si el fichero de salida para la base de datos de SQLite (*.db)
 	 * existe. Si no existe, intentará crearlo.
 	 */
-	private void checkFile() {
+	private boolean checkFile() {
 		System.out.print("Checking file...");
 		File file = new File(this.path);
 		if (!file.exists()) {
@@ -43,7 +63,7 @@ public class DBController {
 				boolean created = file.createNewFile();
 				if (created) {
 					System.out.println("File created!");
-					System.out.println("Creating basic db structure...");
+					return true;
 				} else {
 					System.err.println("Error creating file.");
 				}
@@ -54,23 +74,30 @@ public class DBController {
 		} else {
 			System.out.println("File found.");
 		}
+		return false;
 	}
 
 	/**
 	 * Envía una query a la base de datos.
 	 * 
 	 * @param query
+	 * @return
 	 */
-	public void sendQuery(String query) {
+	public QueryResult sendQuery(String query) {
 		try {
 			getConnection();
 			Statement s = this.connection.createStatement();
 			s.execute(query);
+			ResultSet results = s.getResultSet();
+			if (results != null) {
+				return RSConverter.toQueryResult(results);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeConnection();
 		}
+		return new QueryResult();
 	}
 
 	/**

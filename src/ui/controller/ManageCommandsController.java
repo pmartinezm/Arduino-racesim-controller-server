@@ -17,14 +17,15 @@ import ui.listeners.manageCommands.RecordKeysListener;
 import ui.listeners.manageCommands.RemoveCommandListener;
 import ui.listeners.manageCommands.TxtValueListener;
 import ui.panels.ManageCommandsPanel;
+import util.DBUtil;
 
 public class ManageCommandsController extends ManageCommandsPanel {
 	public ManageCommandsController() {
 		super();
+		loadDb();
 		refreshTableData();
 		setListeners();
 		manageComponentBehaviour();
-		DBController.getInstance().createDatabase("./arcs.dll");
 	}
 
 	private DefaultTableModel createModel() {
@@ -118,5 +119,15 @@ public class ManageCommandsController extends ManageCommandsPanel {
 		}
 		
 		txtKeys.setText(shortCut.toString());
+	}
+	
+	private void loadDb() {
+		boolean needsConfig = DBController.getInstance().createDatabase("./arcs.dll");
+		if(needsConfig) {
+			System.out.println("Configuring new database...");
+			ArrayList<String> queries = new ArrayList<String>();
+			queries.add(DBUtil.CREATE_COMMANDS_TABLE);
+			DBController.getInstance().configureDatabase(queries);
+		}
 	}
 }
