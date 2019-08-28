@@ -3,6 +3,7 @@ package controller.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.database.DBController;
 import model.Command;
 
 public class CommandDAO {

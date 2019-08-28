@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 import controller.dao.CommandDAO;
+import controller.database.DBController;
 import model.Command;
 import ui.listeners.manageCommands.AddCommandListener;
 import ui.listeners.manageCommands.ClearShortcutListener;
@@ -23,6 +24,7 @@ public class ManageCommandsController extends ManageCommandsPanel {
 		refreshTableData();
 		setListeners();
 		manageComponentBehaviour();
+		DBController.getInstance().createDatabase("./arcs.dll");
 	}
 
 	private DefaultTableModel createModel() {
