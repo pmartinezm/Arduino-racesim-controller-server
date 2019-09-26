@@ -10,6 +10,7 @@ import model.QueryResult;
 
 public class RSConverter {
 	public static QueryResult toQueryResult(ResultSet rs) {
+		Log.info("Converting RS");
 		try {
 			QueryResult qr = new QueryResult();
 			int cols = rs.getMetaData().getColumnCount();

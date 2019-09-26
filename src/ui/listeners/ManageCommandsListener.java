@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 
 import ui.controller.ManageCommandsController;
-import ui.controller.UIController;
+import ui.controller.MainUIController;
 import ui.panels.ManageCommandsPanel;
 
 public class ManageCommandsListener implements ActionListener{
-	private UIController uic;
+	private MainUIController uic;
 
-	public ManageCommandsListener(UIController uic) {
+	public ManageCommandsListener(MainUIController uic) {
 		this.uic = uic;
 	}
 

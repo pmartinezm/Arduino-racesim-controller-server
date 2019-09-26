@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.QueryResult;
+import util.DBUtil;
 import util.RSConverter;
 
 public class DBController {
@@ -23,6 +24,7 @@ public class DBController {
 	public static DBController getInstance() {
 		if (instance == null) {
 			instance = new DBController();
+			instance.loadDb();
 		}
 		return instance;
 	}
@@ -35,7 +37,7 @@ public class DBController {
 	 *         exists)
 	 */
 	public boolean createDatabase(String path) {
-		System.out.println("Creating database...");
+		System.out.println("DB - Creating database...");
 		this.path = path;
 		this.url = this.base + this.path;
 		boolean response = checkFile();
@@ -54,25 +56,25 @@ public class DBController {
 	 * existe. Si no existe, intentará crearlo.
 	 */
 	private boolean checkFile() {
-		System.out.print("Checking file...");
+		System.out.print("DB - Checking file...");
 		File file = new File(this.path);
 		if (!file.exists()) {
-			System.out.println("File not found.");
-			System.out.println("Attempting to create...");
+			System.out.println("DB - File not found.");
+			System.out.println("DB - Attempting to create...");
 			try {
 				boolean created = file.createNewFile();
 				if (created) {
-					System.out.println("File created!");
+					System.out.println("DB - File created!");
 					return true;
 				} else {
-					System.err.println("Error creating file.");
+					System.err.println("DB - Error creating file.");
 				}
 			} catch (IOException e) {
-				System.err.println("Error attempring to create file.");
+				System.err.println("DB - Error attempring to create file.");
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("File found.");
+			System.out.println("DB - File found.");
 		}
 		return false;
 	}
@@ -104,7 +106,7 @@ public class DBController {
 	 * Comprueba la conexión con la base de datos.
 	 */
 	private void testConnection() {
-		System.out.println("Testing connection...");
+		System.out.println("DB - Testing connection...");
 		getConnection();
 	}
 
@@ -112,11 +114,11 @@ public class DBController {
 	 * Obtiene la conexión con la base de datos.
 	 */
 	private void getConnection() {
-		System.out.println("Getting connection...");
+		System.out.println("DB - Getting connection...");
 		try {
 			this.connection = DriverManager.getConnection(this.url);
 		} catch (SQLException e) {
-			System.err.println("Error getting connection.");
+			System.err.println("DB - Error getting connection.");
 			e.printStackTrace();
 		}
 	}
@@ -125,14 +127,27 @@ public class DBController {
 	 * Cierra la conexión con la base de datos.
 	 */
 	private void closeConnection() {
-		System.out.println("Closing connection...");
+		System.out.println("DB - Closing connection...");
 		if (this.connection != null) {
 			try {
 				this.connection.close();
 			} catch (SQLException e) {
-				System.err.println("Error closing connection.");
+				System.err.println("DB - Error closing connection.");
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	/**
+	 * Check if db exists. If not, it will be created.
+	 */
+	private void loadDb() {
+		boolean needsConfig = createDatabase("./arcs.dll");
+		if(needsConfig) {
+			System.out.println("DB - Configuring new database...");
+			ArrayList<String> queries = new ArrayList<String>();
+			queries.add(DBUtil.CREATE_COMMANDS_TABLE);
+			DBController.getInstance().configureDatabase(queries);
 		}
 	}
 }

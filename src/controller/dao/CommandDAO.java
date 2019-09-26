@@ -7,6 +7,7 @@ import controller.database.DBController;
 import model.Command;
 import model.QueryResult;
 import util.DBUtil;
+import util.Log;
 
 public class CommandDAO {
 	private static CommandDAO instance;
@@ -25,6 +26,7 @@ public class CommandDAO {
 	}
 
 	public List<Command> getCommands() {
+		Log.info(this, "Retrieving commands...");
 		String query = DBUtil.GET_COMMANDS;
 		QueryResult qr = DBController.getInstance().sendQuery(query);
 		ArrayList<Command> commands = new ArrayList<Command>();
@@ -39,6 +41,7 @@ public class CommandDAO {
 	}
 
 	public boolean addCommand(Command command) {
+		Log.info(this, "Inserting command...");
 		String query = String.format(DBUtil.INSERT_COMMAND, command.getName(), command.getKeys());
 		DBController.getInstance().sendQuery(query);
 		return true;
@@ -46,6 +49,7 @@ public class CommandDAO {
 	}
 
 	public boolean removeCommand(Command command) {
+		Log.info(this, "Deleting command...");
 		// return commands.remove(command);
 		return false;
 	}

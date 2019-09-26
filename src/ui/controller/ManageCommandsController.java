@@ -22,7 +22,6 @@ import util.DBUtil;
 public class ManageCommandsController extends ManageCommandsPanel {
 	public ManageCommandsController() {
 		super();
-		loadDb();
 		refreshTableData();
 		setListeners();
 		manageComponentBehaviour();
@@ -36,7 +35,7 @@ public class ManageCommandsController extends ManageCommandsPanel {
 	}
 
 	private void refreshTableData() {
-		List<Command> commands = CommandDAO.getInstance().getCommands();
+		List<Command> commands = CommandDAO.getInstance().getCommands(); 
 		DefaultListModel<Command> model = new DefaultListModel<Command>();
 
 		for (Command command : commands) {
@@ -119,15 +118,5 @@ public class ManageCommandsController extends ManageCommandsPanel {
 		}
 		
 		txtKeys.setText(shortCut.toString());
-	}
-	
-	private void loadDb() {
-		boolean needsConfig = DBController.getInstance().createDatabase("./arcs.dll");
-		if(needsConfig) {
-			System.out.println("Configuring new database...");
-			ArrayList<String> queries = new ArrayList<String>();
-			queries.add(DBUtil.CREATE_COMMANDS_TABLE);
-			DBController.getInstance().configureDatabase(queries);
-		}
 	}
 }

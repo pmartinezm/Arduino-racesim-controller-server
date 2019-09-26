@@ -1,18 +1,23 @@
 package ui.controller;
 
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ui.UI;
+import controller.dao.CommandDAO;
+import model.Command;
+import ui.MainUI;
 import ui.listeners.ManageCommandsListener;
 
-public class UIController extends UI {
+public class MainUIController extends MainUI {
 
-	public UIController() {
+	public MainUIController() {
 		blink();
 		attatchActions();
+		refreshActiveCommands();
 	}
 	
 	public void createDialog(String title, JPanel panel) {
@@ -42,5 +47,14 @@ public class UIController extends UI {
 				}
 			}
 		}).start();
+	}
+	
+	private void refreshActiveCommands() {
+		List<Command> commands = CommandDAO.getInstance().getCommands();
+		
+		for (Command command : commands) {
+			JLabel label = new JLabel(command.getName());
+			panel.add(label);
+		}
 	}
 }

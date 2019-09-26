@@ -1,8 +1,9 @@
 package main;
 import java.awt.EventQueue;
 
-import ui.UI;
-import ui.controller.UIController;
+import ui.MainUI;
+import ui.controller.MainUIController;
+import util.Log;
 
 public class Main {
 
@@ -10,7 +11,8 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIController frame = new UIController();
+					Log.info(this, "Starting ARCS: Arduino Racesim Controller Server...");
+					MainUIController frame = new MainUIController();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
